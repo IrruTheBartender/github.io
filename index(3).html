@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lubin Cellier — Portfolio BTS SIO SLAM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark:    #1A2340;
+      --mid:     #243055;
+      --accent:  #4E9AF1;
+      --accent2: #2ECC8B;
+      --light:   #F4F6FA;
+      --text:    #1A2340;
+      --muted:   #5A6A8A;
+      --white:   #FFFFFF;
+      --card:    #FFFFFF;
+      --border:  #D8E2F0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26, 35, 64, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+      border-bottom: 1px solid rgba(78, 154, 241, 0.15);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    nav ul {
+      list-style: none;
+      display: flex; gap: 2rem;
+    }
+    nav ul a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex; align-items: center;
+      padding: 100px 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+    }
+    .hero-left { animation: fadeUp 0.7s ease both; }
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+    h1 .accent { color: var(--accent); }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      max-width: 420px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-links {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      border: 1.5px solid var(--accent);
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right {
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .hero-cards {
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(78,154,241,0.15);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+    }
+    .hero-card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .hero-card-value {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 400;
+    }
+    .badge-green {
+      display: inline-block;
+      background: rgba(46, 204, 139, 0.15);
+      color: var(--accent2);
+      border: 1px solid rgba(46,204,139,0.3);
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+    .dark-section { background: var(--dark); }
+    .dark-section h2 { color: var(--white); }
+    .dark-section .section-tag { color: var(--accent); }
+
+    /* ── STAGES ── */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .stage-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(78,154,241,0.12);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .stage-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent);
+    }
+    .stage-card:hover { border-color: rgba(78,154,241,0.35); }
+    .stage-company {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .stage-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.2rem;
+    }
+    .stage-desc {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    .stage-quote {
+      border-left: 2px solid rgba(78,154,241,0.4);
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .stage-quote p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      line-height: 1.65;
+    }
+    .stage-quote cite {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-style: normal;
+    }
+    .stage-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(78,154,241,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(78,154,241,0.2);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PROJETS ── */
+    #projets { background: var(--light); }
+    .projets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .projet-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .projet-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+    .projet-card:hover {
+      box-shadow: 0 8px 32px rgba(26,35,64,0.1);
+      transform: translateY(-3px);
+    }
+    .projet-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .projet-stack {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+    .projet-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+    .projet-comp {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .projet-comp strong {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .projet-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .link-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 5px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .link-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── COMPETENCES ── */
+    #compétences { background: var(--white); }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .comp-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      background: var(--light);
+    }
+    .comp-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .comp-sources {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    .comp-sources span {
+      display: inline-block;
+      background: rgba(78,154,241,0.08);
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
+      margin: 0.15rem 0.15rem 0 0;
+      border: 1px solid rgba(78,154,241,0.15);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 2.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(78,154,241,0.1);
+    }
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-grid, .stages-grid, .projets-grid, .comp-grid {
+        grid-template-columns: 1fr;
+      }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Lubin <span>Cellier</span></div>
+  <ul>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#compétences">Compétences</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <p class="hero-tag">BTS SIO option SLAM &mdash; Session 2026</p>
+      <h1>Lubin<br><span class="accent">Cellier</span></h1>
+      <p class="hero-desc">
+        Profil Backend, Infrastructure et DevOps. Deux stages avec livrables
+        toujours en production, projets full-stack et pipeline CI/CD conteneurisé.
+      </p>
+      <div class="hero-links">
+        <a href="https://github.com/IrruTheBartender" class="btn btn-primary" target="_blank">GitHub</a>
+        <a href="https://linkedin.com" class="btn btn-outline" target="_blank">LinkedIn</a>
+        <a href="#stages" class="btn btn-outline">Voir les réalisations</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-cards">
+        <div class="hero-card">
+          <div class="hero-card-label">Formation</div>
+          <div class="hero-card-value">BTS SIO SLAM &mdash; Lycée Chevrollier, Angers</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-label">Stage 1</div>
+          <div class="hero-card-value">Scania &mdash; Système de tickets no-code / low-code <span class="badge-green">En prod</span></div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-label">Stage 2</div>
+          <div class="hero-card-value">I.Thibault Inc., Québec &mdash; Pipeline CI/CD + Staging <span class="badge-green">En activite</span></div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-label">Stack principale</div>
+          <div class="hero-card-value">Jenkins &middot; Docker &middot; C++ &middot; PHP &middot; Laravel &middot; Power Suite</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGES -->
+<section id="stages" class="dark-section">
+  <div class="section-inner">
+    <p class="section-tag">Milieu professionnel</p>
+    <h2>Stages en entreprise</h2>
+    <div class="stages-grid">
+
+      <!-- Scania -->
+      <div class="stage-card reveal">
+        <div class="stage-company">Scania</div>
+        <div class="stage-meta">Angers &mdash; Juin / Juillet 2024</div>
+        <p class="stage-desc">
+          Conception et développement d'un système de tickets de maintenance
+          de A a Z dans l'environnement Power Suite de Microsoft (Power Apps,
+          Power Automate, SharePoint). Livraison avec documentation complète,
+          dans les délais. La solution est toujours utilisée en production.
+        </p>
+        <div class="stage-quote">
+          <p>"Une solution complète a bien été remise, documentation en main,
+          les délais ont ete respectés. Lubin a su s'adapter a l'environnement
+          et a l'equipe tout en gardant une forte autonomie."</p>
+          <cite>Maître de stage, Scania Angers</cite>
+        </div>
+        <div class="stage-tags">
+          <span class="tag">Power Apps</span>
+          <span class="tag">Power Automate</span>
+          <span class="tag">SharePoint</span>
+          <span class="tag">No-code / Low-code</span>
+        </div>
+      </div>
+
+      <!-- I.Thibault -->
+      <div class="stage-card reveal">
+        <div class="stage-company">I.Thibault Inc.</div>
+        <div class="stage-meta">Québec, Canada &mdash; Mars / Avril 2026</div>
+        <p class="stage-desc">
+          Mise en place d'un pipeline CI/CD Jenkins conteneurisé avec Docker
+          et Maven. En bonus non demandé : configuration et déploiement d'un
+          environnement de staging complet pour l'application de l'entreprise,
+          livré avant la fin du stage. Les deux solutions sont toujours en activite.
+        </p>
+        <div class="stage-quote">
+          <p>"Lubin a dépassé la demande initiale en débutant la configuration
+          ainsi que la mise en place d'un environnement de staging. Nous sommes
+          très proches d'un résultat professionnellement fini."</p>
+          <cite>Maître de stage, I.Thibault Inc.</cite>
+        </div>
+        <div class="stage-tags">
+          <span class="tag">Jenkins</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Maven</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Staging</span>
+          <span class="tag">OWASP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-inner">
+    <p class="section-tag">Réalisations personnelles et AP</p>
+    <h2>Projets</h2>
+    <div class="projets-grid">
+
+      <!-- Cilantro -->
+      <div class="projet-card reveal">
+        <div class="projet-name">Cilantro</div>
+        <div class="projet-stack">C++17 &middot; PHP 8.2 &middot; SQLite3 &middot; Docker &middot; JS Vanilla</div>
+        <p class="projet-desc">
+          Application web standalone de jeu de cartes inspirée de Balatro.
+          Backend en C++17 avec la librairie Crow, API REST d'une quinzaine
+          d'endpoints, proxy PHP Slim 4, base de données SQLite, frontend
+          JS Vanilla. Architecture full-stack entièrement conteneurisée.
+          Issu d'un easter egg du projet de festival CaleSons (AP).
+        </p>
+        <div class="projet-comp">
+          <strong>Compétences couvertes</strong>
+          Présence en ligne &middot; Patrimoine informatique &middot; Mode projet &middot; Mise à disposition &middot; Incidents et demandes &middot; Dev professionnel
+        </div>
+        <div class="projet-links">
+          <a href="https://github.com/IrruTheBartender/Cilantro" class="link-btn" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- GCR -->
+      <div class="projet-card reveal">
+        <div class="projet-name">Goldcity Records</div>
+        <div class="projet-stack">Flutter &middot; Dart &middot; just_audio &middot; SharedPreferences</div>
+        <p class="projet-desc">
+          Application mobile de streaming et de gestion musicale pour le
+          label indépendant Goldcity Records. Lecture de fichiers audio locaux,
+          extraction de métadonnées ID3, catalogue d'artistes, système de
+          favoris, thème clair/sombre. Gestion des spécificités Xiaomi/MIUI.
+          Déployée via APK sur Android.
+        </p>
+        <div class="projet-comp">
+          <strong>Compétences couvertes</strong>
+          Mise à disposition &middot; Mode projet &middot; Dev professionnel &middot; Incidents et demandes
+        </div>
+        <div class="projet-links">
+          <a href="https://github.com/IrruTheBartender/GCR/releases/tag/APK" class="link-btn" target="_blank">APK</a>
+          <a href="https://github.com/IrruTheBartender/GCR" class="link-btn" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Microblog -->
+      <div class="projet-card reveal">
+        <div class="projet-name">Microblog</div>
+        <div class="projet-stack">PHP &middot; MySQL</div>
+        <p class="projet-desc">
+          Plateforme de microblog style Twitter axée jeux videos
+          Gestion de comptes utilisateurs,
+          publication de contenu, backend PHP. Projet personnel orienté
+          présence en ligne et gestion de service web.
+        </p>
+        <div class="projet-comp">
+          <strong>Compétences couvertes</strong>
+          Présence en ligne &middot; Incidents et demandes &middot; Patrimoine informatique
+        </div>
+        <div class="projet-links">
+          <a href="https://github.com/IrruTheBartender" class="link-btn" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- API Laravel -->
+      <div class="projet-card reveal">
+        <div class="projet-name">API CaleSons (AP)</div>
+        <div class="projet-stack">Laravel &middot; Eloquent ORM &middot; Docker &middot; PHP</div>
+        <p class="projet-desc">
+          Développement de l'API web du projet de groupe CaleSons, gestionnaire
+          de festival. Conception de la structure de données, endpoints REST,
+          ORM Eloquent. Rôle principal : backend et infrastructure Docker
+          multi-stack (mobile, web, BDD, application lourde).
+        </p>
+        <div class="projet-comp">
+          <strong>Compétences couvertes</strong>
+          Présence en ligne &middot; Mode projet &middot; Mise à disposition &middot; Dev professionnel
+        </div>
+        <div class="projet-links">
+          <p>Dépôt hébergé sur le GitLab interne du lycée.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="compétences">
+  <div class="section-inner">
+    <p class="section-tag">Bloc 1 &mdash; E5</p>
+    <h2>Couverture des 6 compétences</h2>
+    <div class="comp-grid">
+      <div class="comp-card reveal">
+        <div class="comp-title">Gérer le patrimoine informatique</div>
+        <div class="comp-sources">
+          <span>Scania</span><span>CI/CD TIBO</span><span>Cilantro</span>
+        </div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-title">Répondre aux incidents et demandes</div>
+        <div class="comp-sources">
+          <span>Scania (tickets)</span><span>Cilantro</span><span>Microblog</span>
+        </div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-title">Développer la présence en ligne</div>
+        <div class="comp-sources">
+          <span>Cilantro</span><span>Microblog</span><span>API CaleSons</span>
+        </div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-title">Travailler en mode projet</div>
+        <div class="comp-sources">
+          <span>Scania</span><span>CI/CD TIBO</span><span>Cilantro</span><span>GoldenCity Records</span><span>AP CaleSons</span><span>Git + TCIrello</span>
+        </div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-title">Mettre à disposition un service</div>
+        <div class="comp-sources">
+          <span>Scania</span><span>CI/CD + Staging TIBO</span><span>Cilantro</span>
+        </div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-title">Organiser son développement professionnel</div>
+        <div class="comp-sources">
+          <span>GitHub public</span><span>LinkedIn</span><span>CI/CD TIBO</span><span>Cilantro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUITE -->
+<section style="background: var(--dark); padding: 3rem 2.5rem; border-top: 1px solid rgba(78,154,241,0.12);">
+  <div class="section-inner" style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+    <div>
+      <p class="section-tag" style="margin-bottom:0.4rem;">Suite du parcours</p>
+      <p style="font-size:1rem; color:rgba(255,255,255,0.7); font-weight:300; max-width:600px; line-height:1.65;">
+        Poursuite en licence professionnelle ou BUT informatique, formation publique,
+        orientation systèmes et DevOps.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Lubin Cellier &mdash; BTS SIO SLAM 2026 &mdash; Lycée Chevrollier, Angers &mdash;
+  <a href="https://github.com/IrruTheBartender" target="_blank">github.com/IrruTheBartender</a></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
